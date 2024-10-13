@@ -1,2 +1,2 @@
-# algorithmic_coding
-Basic algorithms with tests and analyses
+# Algorithmic coding
+Basic algorithms related to array manipulation and graphs with tests and analyses
