@@ -1,4 +1,5 @@
 
+# O(n^2) time and O(1) space
 def max_subarray_sum(arr):
     res = arr[0]
 
