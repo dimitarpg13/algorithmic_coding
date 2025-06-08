@@ -19,7 +19,37 @@ def max(a, b, c=None):
 
 def max_crossing_sum(arr, l, m, h):
     # include elements on the left of mid
-    left_sum = float('inf')
+    left_sum = float('-inf')
     sum = 0
     for i in range(m, l - 1, -1):
         sum += arr[i]
+        left_sum = max(left_sum, sum)
+        
+    right_sum = float('-inf')
+    sum = 0
+    for i in range(m, h + 1):
+        sum += arr[i]
+        right_sum = max(right_sum, sum)
+        
+    return max(left_sum + right_sum - arr[m], left_sum, right_sum)
+
+def max_sum(arr, l, h):
+    if l > h:
+        return float('-inf')
+    if l == h:
+        return arr[l]
+    
+    m = l + (h - l) // 2
+    
+    return max(
+        max_sum(arr, l, m),
+        max_sum(arr, m + 1, h),
+        max_crossing_sum(arr, l, m, h)
+    )
+    
+def max_subarray_sum(arr):
+    return max_sum(arr, 0, len(arr) - 1)
+    
+if __name__ == '__main__':
+    arr = [-2, -3, 4, -1, -2, 1, 5, -3]
+    print(max_subarray_sum(arr))
