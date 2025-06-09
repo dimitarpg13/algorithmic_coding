@@ -1,15 +1,24 @@
-def binary_search(arr, low, high, x):
-    while low <= high:
-        mid = low + (high - low) // 2
+def binary_search(arr, left, right, x):
+    """
+    Perform binary search on a sorted array.
+    :param arr: List of sorted elements
+    :param left: Left index of the subarray to search
+    :param right: Right index of the subarray to search
+    :param x: Element to search for
+    :return: Index of x in arr if found, otherwise -1
+    """
+    
+    while left <= right:
+        mid = left + (right - left) // 2
         
         if arr[mid] == x:
             return mid 
         
         elif arr[mid] < x:
-            low = mid + 1
+            left = mid + 1
         
         else:
-            high = mid - 1
+            right = mid - 1
             
     return -1
 
