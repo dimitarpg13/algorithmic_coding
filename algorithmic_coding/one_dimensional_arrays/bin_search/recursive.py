@@ -22,4 +22,7 @@ if __name__ == "__main__":
     arr = [1, 3, 5, 7, 9, 11]
     target = 7
     result = binary_search(arr, target)
-    print(f"Index of {target}: {result}")
+    if result == -1:
+        print(f"{target} not found in the array.")
+    else:
+        print(f"Index of {target}: {result}")
