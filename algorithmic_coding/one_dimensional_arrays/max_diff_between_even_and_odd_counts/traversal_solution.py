@@ -1,7 +1,5 @@
 from collections import Counter
 
-from collections import Counter
-
 class TraversalSolution:
     def __init__(self):
         self.k = None
