@@ -45,15 +45,14 @@ class TraversalSolution:
             result = freq2
         else:
             return 0
+        # If we reach here, it means one of the dicts is empty
+        # We just need to check the odd frequencies in the non-empty dict
         for count in result.values():
             if count % 2 == 1:
                 max_odd_freq = max(max_odd_freq, count)
 
         return max_odd_freq
-        
-        
-
-
+    
     def _maxDifferenceSubs(self, s: str, i: int) -> int:
         """
         type s: str, input string
@@ -84,8 +83,8 @@ class TraversalSolution:
                 subs2 = s[self.k+i:j]
 
                 if subs[0] == subs[1] and subs[0] not in freq:
-                    evens_min = min(evens)
-                    max_diff = odds_max - evens_min
+                    even_min = min(evens)
+                    max_diff = odd_max - even_min
                     break
                 else:
                     if not new_freq:
