@@ -20,8 +20,38 @@ class TraversalSolution:
         result = dict()
         n1 = len(freq1)
         n2 = len(freq2)
-        if n1 < n2:
 
+        max_odd_freq = 0
+        if n1 > 0 and n2 > 0:
+            for key1, count1 in freq1.items():
+                if key1 in freq2:
+                    tot_count = count1 + freq2[key]
+                    result[key1] = tot_count
+                    if tot_count % 2 == 1:
+                        max_odd_freq = max(max_odd_freq, tot_count)
+                else:
+                    result[key1] = count1
+                    if count1 % 2 == 1:
+                        max_odd_freq = max(max_odd_freq, count1)
+            for  key2, count2 in freq2.items():
+                if key2 not in freq1:
+                    result[key2] = count2
+                    if count2 % 2 == 1:
+                        max_odd_freq = max(max_odd_freq, count2)
+            return max_odd_freq
+        elif n1 > 0:
+            result = freq1
+        elif n2 > 0:
+            result = freq2
+        else:
+            return 0
+        for count in result.values():
+            if count % 2 == 1:
+                max_odd_freq = max(max_odd_freq, count)
+
+        return max_odd_freq
+        
+        
 
 
     def _maxDifferenceSubs(self, s: str, i: int) -> int:
@@ -89,7 +119,7 @@ class TraversalSolution:
         self.k = k
         self.n = len(s)
 
-        max_diff = float('-inf')
+        max_diff = 0
         for i in range(0,self.n-self.k+1):
             max_diff = max(max_diff,self._maxDifferenceSubs(s, i))
         return max_diff
