@@ -94,8 +94,8 @@ class TraversalSolution:
         max_diff = - self.n - 1
         for i in range(0,self.n-self.k+1):
             max_diff = max(max_diff,self._maxDifferenceSubs(s, i))
-        if max_diff == - self.n - 1:
-            raise ValueError(f"No even frequency found with this input!") 
+        #if max_diff == - self.n - 1:
+        #    raise ValueError(f"No even frequency found with this input!") 
         return max_diff
             
 
@@ -103,40 +103,40 @@ if __name__ == '__main__':
     solution = TraversalSolution()
     s = "aabbccdde"
     k = 3
-    print("Max difference between even and odd counts in any substring of length k:", solution.maxDifference(s, k))
+    print("Max difference between even and odd counts in any substring of length at least k:", solution.maxDifference(s, k))
     
     s = "abcde"
     k = 2
-    print("Max difference between even and odd counts in any substring of length k:", solution.maxDifference(s, k))
+    print("Max difference between even and odd counts in any substring of length at least k:", solution.maxDifference(s, k))
     
     s = "aabbcc"
     k = 4
-    print("Max difference between even and odd counts in any substring of length k:", solution.maxDifference(s, k))
+    print("Max difference between even and odd counts in any substring of length at least k:", solution.maxDifference(s, k))
     
     s = "aaaa"
     k = 2
-    print("Max difference between even and odd counts in any substring of length k:", solution.maxDifference(s, k))
+    print("Max difference between even and odd counts in any substring of length at least k:", solution.maxDifference(s, k))
     
     s = "abcdabcd"
     k = 5
-    print("Max difference between even and odd counts in any substring of length k:", solution.maxDifference(s, k))
+    print("Max difference between even and odd counts in any substring of length at least k:", solution.maxDifference(s, k))
     
     s = "aabbccddeeffgghh"
     k = 6
-    print("Max difference between even and odd counts in any substring of length k:", solution.maxDifference(s, k))
+    print("Max difference between even and odd counts in any substring of length at least k:", solution.maxDifference(s, k))
     
     s = "xyzxyzxyz"
     k = 3
-    print("Max difference between even and odd counts in any substring of length k:", solution.maxDifference(s, k))
+    print("Max difference between even and odd counts in any substring of length at least k:", solution.maxDifference(s, k))
     
     s = "mnopmnopmnop"
     k = 4
-    print("Max difference between even and odd counts in any substring of length k:", solution.maxDifference(s, k))
+    print("Max difference between even and odd counts in any substring of length least k:", solution.maxDifference(s, k))
     
     s = "aabbccddeeffgghhiijj"
     k = 8
-    print("Max difference between even and odd counts in any substring of length k:", solution.maxDifference(s, k))
+    print("Max difference between even and odd counts in any substring of length at least k:", solution.maxDifference(s, k))
     
     s = "abcdefghij"
     k = 5
-    print("Max difference between even and odd counts in any substring of length k:", solution.maxDifference(s, k)) 
+    print("Max difference between even and odd counts in any substring of length at least k:", solution.maxDifference(s, k)) 
