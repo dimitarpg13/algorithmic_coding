@@ -47,12 +47,31 @@ class TraversalSolution:
             if c in freq:
                 freq[c] += 1
                 if (freq[c] - 1) % 2 == 0:
+                    odds.add(freq[c])
                     odd_max = max(odd_max, freq[c])
+            
+                    if freq[c] - 1 not in freq.values():
+                        # recalculate the new min even freq
+                        evens.remove(freq[c]-1)
+                        if len(evens) > 0:
+                            even_min = min(evens)
+                        else:
+                            even_min = 0
+
                 else:
+                    evens.add(freq[c])
                     if even_min > 0:
                         even_min = min(even_min, freq[c])
                     else:
                         even_min = freq[c]
+
+                    if freq[c] - 1 not in freq.values():
+                        # recalculate the new max odd freq
+                        odds.remove(freq[c]-1)
+                        if len(odds) > 0:
+                            odd_max = max(odds)
+                        else:
+                            odd_max = 0
             else:
                 freq[c] = 1
                 odd_max = max(odd_max, freq[c])
