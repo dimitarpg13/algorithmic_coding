@@ -74,7 +74,7 @@ class TraversalSolution:
         for i in range(0,self.n-self.k+1):
             max_diff = max(max_diff,self._maxDifferenceSubs(s, i))
         if max_diff == - self.n - 1:
-            raise ValueError(f"Zero even frequency with this input!") 
+            raise ValueError(f"No even frequency found with this input!") 
         return max_diff
             
 
