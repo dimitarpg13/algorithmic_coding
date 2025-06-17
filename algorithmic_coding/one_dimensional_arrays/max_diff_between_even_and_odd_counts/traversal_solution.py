@@ -52,7 +52,8 @@ class TraversalSolution:
             
                     if freq[c] - 1 not in freq.values():
                         # recalculate the new min even freq
-                        evens.remove(freq[c]-1)
+                        if (freq[c]-1) in evens:
+                            evens.remove(freq[c]-1)
                         if len(evens) > 0:
                             even_min = min(evens)
                         else:
@@ -67,7 +68,8 @@ class TraversalSolution:
 
                     if freq[c] - 1 not in freq.values():
                         # recalculate the new max odd freq
-                        odds.remove(freq[c]-1)
+                        if (freq[c]-1) in odds:
+                            odds.remove(freq[c]-1)
                         if len(odds) > 0:
                             odd_max = max(odds)
                         else:
