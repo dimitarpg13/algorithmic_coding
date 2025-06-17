@@ -12,103 +12,54 @@ class TraversalSolution:
         rtype: dict[str, int]; str: char, int: count
         """
         return dict(Counter(s))
-
-    def _getMaxOddFrequency(freq1: dict, freq2: dict) -> int:
-        """
-        It merges the two frequency dicts and returns the new 
-        """
-        result = dict()
-        n1 = len(freq1)
-        n2 = len(freq2)
-
-        max_odd_freq = 0
-        if n1 > 0 and n2 > 0:
-            for key1, count1 in freq1.items():
-                if key1 in freq2:
-                    tot_count = count1 + freq2[key]
-                    result[key1] = tot_count
-                    if tot_count % 2 == 1:
-                        max_odd_freq = max(max_odd_freq, tot_count)
-                else:
-                    result[key1] = count1
-                    if count1 % 2 == 1:
-                        max_odd_freq = max(max_odd_freq, count1)
-            for  key2, count2 in freq2.items():
-                if key2 not in freq1:
-                    result[key2] = count2
-                    if count2 % 2 == 1:
-                        max_odd_freq = max(max_odd_freq, count2)
-            return max_odd_freq
-        elif n1 > 0:
-            result = freq1
-        elif n2 > 0:
-            result = freq2
-        else:
-            return 0
-        # If we reach here, it means one of the dicts is empty
-        # We just need to check the odd frequencies in the non-empty dict
-        for count in result.values():
-            if count % 2 == 1:
-                max_odd_freq = max(max_odd_freq, count)
-
-        return max_odd_freq
-    
+        
     def _maxDifferenceSubs(self, s: str, i: int) -> int:
         """
         type s: str, input string
         type i: int, start of the substring of s
-        rtype: int, max difference between  
+        rtype: int, max difference between odd frequency and non-zero even frequency
+           if the even frequency is 0 then return -len(s)-1  
         """
         subs = s[i:self.k+i]
         freq = self._charFrequencies(subs) 
         odds = set()
         evens = set()
-        even_min = 0
         for val in freq.values():
             if val % 2 == 0:
                 evens.add(val)
             else:
                 odds.add(val)
+
         if len(odds) > 0:
             odd_max = max(odds)
         else:
             odd_max = 0
+        
+        even_min = 0
         if len(evens) > 0:
             even_min = min(evens)
+            max_diff = odd_max - even_min
         else:
-            # find if there is even count from position k+i+1 to the end of the string
-            max_diff = None
-            new_freq = dict()
-            for j in range(self.k+i+2,self.n+1):
-                subs2 = s[self.k+i:j]
-
-                if subs[0] == subs[1] and subs[0] not in freq:
-                    even_min = min(evens)
-                    max_diff = odd_max - even_min
-                    break
+            max_diff = - self.n - 1
+     
+        for j in range(self.k+i, self.n):
+            c = s[j]
+            if c in freq:
+                freq[c] += 1
+                if freq[c] - 1 % 2 == 0:
+                    odd_max = max(odd_max, freq[c])
                 else:
-                    if not new_freq:
-                        new_freq[subs[0]] = 1
-                        new_freq[subs[1]] = 1
+                    if even_min > 0:
+                        even_min = min(even_min, freq[c])
                     else:
-                        if subs[-1] in new_freq:
-                            new_freq[subs[-1]] += 1
-                            evens_min = 2
-                    
-                            odds_max_new = self._getMaxOddFrequency(freq, new_freq)
-                            if odds_max_new == odd_max:
-                                max_diff = odds_max - evens_min
-                                break
-                            else:
-                                if max_diff is None:
-                                    max_diff = odds_max_new - evens_min
-                                else:
-                                    max_diff = max(max_diff, odds_max_new - evens_min)
-                        else:
-                            new_freq[subs[-1]] = 1
-                
-            if even_min == 0:
-                raise ValueError(f"invalid input string! The even frequency count is zero: {s}")
+                        even_min = freq[c]
+            else:
+                freq[c] = 1
+                odd_max = max(odd_max, freq[c])
+            
+            if even_min > 0:
+                max_diff = max(max_diff, odd_max - even_min)
+
         return max_diff
 
     def maxDifference(self, s: str, k: int) -> int:
@@ -117,10 +68,13 @@ class TraversalSolution:
         """
         self.k = k
         self.n = len(s)
-
+        if self.k > self.n:
+            raise ValueError(f"invalid value for k: {self.k}")
         max_diff = 0
         for i in range(0,self.n-self.k+1):
             max_diff = max(max_diff,self._maxDifferenceSubs(s, i))
+        if max_diff == - self.n - 1:
+            raise ValueError(f"Zero even frequency with this input!") 
         return max_diff
             
 
