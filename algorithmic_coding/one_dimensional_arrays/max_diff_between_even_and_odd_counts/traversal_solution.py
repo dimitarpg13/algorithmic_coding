@@ -46,7 +46,7 @@ class TraversalSolution:
             c = s[j]
             if c in freq:
                 freq[c] += 1
-                if freq[c] - 1 % 2 == 0:
+                if (freq[c] - 1) % 2 == 0:
                     odd_max = max(odd_max, freq[c])
                 else:
                     if even_min > 0:
@@ -70,7 +70,7 @@ class TraversalSolution:
         self.n = len(s)
         if self.k > self.n:
             raise ValueError(f"invalid value for k: {self.k}")
-        max_diff = 0
+        max_diff = - self.n - 1
         for i in range(0,self.n-self.k+1):
             max_diff = max(max_diff,self._maxDifferenceSubs(s, i))
         if max_diff == - self.n - 1:
