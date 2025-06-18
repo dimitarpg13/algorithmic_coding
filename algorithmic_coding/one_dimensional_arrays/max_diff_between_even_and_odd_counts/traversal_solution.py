@@ -4,6 +4,7 @@ class TraversalSolution:
     def __init__(self):
         self.k = None
         self.n = None
+        self.k_str_to_freq = dict() # strings with len k and their frequencies processed so far
 
     @staticmethod
     def _char_frequencies(s: str) -> dict[str, int]:
@@ -21,29 +22,42 @@ class TraversalSolution:
            if the even frequency is 0 then return -len(s)-1  
         """
         subs = s[i:self.k+i]
-        freq = self._char_frequencies(subs)
-        odds = set()
-        evens = set()
-        for val in freq.values():
-            if val % 2 == 0:
-                evens.add(val)
-            else:
-                odds.add(val)
 
-        if len(odds) > 0:
-            odd_max = max(odds)
+        if subs not in self.k_str_to_freq:
+  
+            freq = self._char_frequencies(subs) 
+            odds = set()
+            evens = set()
+            for val in freq.values():
+                if val % 2 == 0:
+                    evens.add(val)
+                else:
+                    odds.add(val)
+
+            if len(odds) > 0:
+                odd_max = max(odds)
+            else:
+                odd_max = 0
+            
+            even_min = 0
+            if len(evens) > 0:
+                even_min = min(evens)
+                max_diff = odd_max - even_min
+            else:
+                max_diff = - self.n - 1
+            
+            self.k_str_to_freq[subs] = tuple([freq.copy(), odds.copy(), evens.copy(), odd_max, even_min, max_diff])
         else:
-            odd_max = 0
-        
-        even_min = 0
-        if len(evens) > 0:
-            even_min = min(evens)
-            max_diff = odd_max - even_min
-        else:
-            max_diff = - self.n - 1
-     
+            freq, odds, evens, odd_max, even_min, max_diff = self.k_str_to_freq[subs]
+            freq = freq.copy()  # make a copy to avoid modifying the cached values
+            odds = odds.copy()
+            evens = evens.copy()
+    
+        chars_so_far = str(subs)
         for j in range(self.k+i, self.n):
             c = s[j]
+            chars_so_far += c
+            
             if c in freq:
                 freq[c] += 1
                 if (freq[c] - 1) % 2 == 0:
@@ -79,7 +93,7 @@ class TraversalSolution:
             
             if even_min > 0:
                 max_diff = max(max_diff, odd_max - even_min)
-
+                
         return max_diff
 
     def max_difference(self, s: str, k: int) -> int:
@@ -95,11 +109,21 @@ class TraversalSolution:
             max_diff = max(max_diff,self._max_difference_subs(s, i))
         #if max_diff == - self.n - 1:
         #    raise ValueError(f"No even frequency found with this input!") 
-        return max_diff
-            
+        return max_diff            
+
 
 if __name__ == '__main__':
     solution = TraversalSolution()
+
+    s = "0001"
+    k = 1
+    print("Max difference between even and odd counts in any substring of length at least k:", solution.max_difference(s, k))
+
+
+    s = "1010313303"
+    k = 1
+    print("Max difference between even and odd counts in any substring of length at least k:", solution.max_difference(s, k))
+
     s = "aabbccdde"
     k = 3
     print("Max difference between even and odd counts in any substring of length at least k:", solution.max_difference(s, k))
