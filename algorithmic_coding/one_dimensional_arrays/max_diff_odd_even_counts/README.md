@@ -2,12 +2,12 @@
 
 You are given a string `s` and an integer `k`. Find the maximum difference between the frequency of two characters, `freq[a] - freq[b]`, in a substring `subs` of `s`, such that:
 
-* subs has `a` size of at least `k`.
+* subs has a size of at least `k`.
 * character `a` has an odd frequency in `subs`.
 * character `b` has a non-zero even frequency in `subs`.
 * return the maximum difference.
 
-Note that `subs` can contain more than 2 distinct characters.
+Note that `subs` can contain more than $2$ distinct characters.
 
  
 
@@ -19,7 +19,7 @@ Output: `-1`
 
 Explanation:
 
-For the substring `"12233"`, the frequency of `'1'` is 1 and the frequency of `'3'` is 2. The difference is `1 - 2 = -1`.
+For the substring `"12233"`, the frequency of `'1'` is $1$ and the frequency of `'3'` is $2$. The difference is `1 - 2 = -1`.
 
 _Example 2_:
 
@@ -29,7 +29,7 @@ Output: `1`
 
 Explanation:
 
-For the substring `"11222"`, the frequency of `'2'` is 3 and the frequency of `'1'` is 2. The difference is `3 - 2 = 1`.
+For the substring `"11222"`, the frequency of `'2'` is $3$ and the frequency of `'1'` is $2$. The difference is `3 - 2 = 1`.
 
 _Example 3_:
 
@@ -41,7 +41,7 @@ Output: `-1`
 
 Constraints:
 
-- `3 <= s.length <= `$3 \times 10^4$
+- $3 \leq $`s.length`$ \leq 3 \times 10^4$
 
 - `s` consists only of digits `'0'` to `'4'`.
 
