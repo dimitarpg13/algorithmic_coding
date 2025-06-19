@@ -57,6 +57,6 @@ Since three subsequences were created, we return `3`. It can be shown that `3` i
 
 _Constraints_:
 
-- `1 <= nums.length <= $10^5$`
+- `1 <= nums.length <= `$10^5$
 - `0 <= nums[i] <= `$10^5$
 - `0 <= k <= `$10^5$
