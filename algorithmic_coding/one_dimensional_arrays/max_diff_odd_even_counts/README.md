@@ -41,7 +41,7 @@ Output: `-1`
 
 Constraints:
 
-- $3 \leq $`s.length`$ \leq 3 \times 10^4$
+- $3$ $\leq$ `s.length` $\leq 3 \times 10^4$
 
 - `s` consists only of digits `'0'` to `'4'`.
 
