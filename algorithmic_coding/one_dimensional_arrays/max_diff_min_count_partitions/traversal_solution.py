@@ -22,10 +22,22 @@ class Solution:
         """
         self.nums = nums
         self.k = k
-        self.seqs = dict()
-        cur_seq = list()   
+        self.seqs = list()
+        cur_seq = list()
+        cur_min = float('inf')
+        cur_max = float('-inf')
+        cur_min_idx = -1
+        cur_max_idx = -1 
         for i, val in enumerate(nums):
             if i == 0:
                 cur_seq.append(val)
+                cur_min = val
+                cur_max = val
+                cur_min_idx = 0
+                cur_max_idx = 0
             else:
-                pass
+                if abs(val - cur_min) <= k and abs(val - cur_max) <= k:
+                     if val < cur_min:
+                        cur_seq.append(val)
+                        cur_min = val
+                        cur_min_idx = i 
