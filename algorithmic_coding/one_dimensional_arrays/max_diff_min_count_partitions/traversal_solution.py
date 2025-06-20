@@ -47,4 +47,3 @@ class Solution:
                  elif val < cur_min:
 
                  elif val > cur_max:
-
