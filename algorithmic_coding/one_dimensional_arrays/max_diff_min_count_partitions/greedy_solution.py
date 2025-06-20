@@ -32,7 +32,9 @@ class Solution:
 
     # Algorithm: follows from Conjecture 1 and Conjecture 2
     # greedy strategy:
-    # 
+    # every new value is moved to the sequence to which mean it is closest to.
+    # if the new value does not satisify the range constraint of all existing sequences
+    # then we create a new sequence for it.  
     
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
         for cur in reversed(seqs):
