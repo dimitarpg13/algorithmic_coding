@@ -11,20 +11,26 @@ class Solution:
         # list  
 
     # Definition: max range of a sequence
-    # We say that the max range of a sequence S = {s1, s2, ..., sn} is K if
+    # We say that the max range R(S) of a sequence S = {s1, s2, ..., sn} is K if
     # max(S) - min(S) = K.
+
+    # Definition: Total range of a partition R_tot
+    # The total range R_tot(P) of a partition P = {S1, S2, ..., Sm}
+    # is given as R_tot(P) = sum_{j=1}^{m} R(Sj) 
 
     # Definition: optimal k-partition
     # A partition of the original sequence S into subsequences S1, S2, ..., Sn
     # such that for each subsequence its max range is at most k and no partition
     # exist resulting in a smaller number of sequences having the specified range constraint.
 
-    # Conjecture: We can always find an optimal k-partition in which for any two subsequences
+    # Conjecture 1: We can always find an optimal k-partition in which for any two subsequences
     # S1 and S2  every element of one of the sequence is larger than every element of the
     # other.
 
-    # Conjecture: We can always find an optimal k-partition in which the total sum of ranges
-    # along all sequences R_tot_opt is smaller than R_tot of any other k-partition
+    # Conjecture 2: We can always find an optimal k-partition in which the total range 
+    # R_tot_opt is smaller than R_tot of any other k-partition
+
+    # Algorithm: 
     
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
         for cur in reversed(seqs):
