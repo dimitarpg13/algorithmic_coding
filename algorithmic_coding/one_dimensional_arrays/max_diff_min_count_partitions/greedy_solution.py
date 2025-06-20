@@ -35,11 +35,18 @@ class Solution:
     # every new value is moved to the sequence to which mean it is closest to.
     # if the new value does not satisify the range constraint of all existing sequences
     # then we create a new sequence for it.  
-    # Adjustment: Before creating a new sequence find out if we can rebalance the 
+    # Adjustment Procedure: Before creating a new sequence find out if we can rebalance the 
     # exisiting sequences such that the new value will be absorbed in one of the adjusted 
     # sequences.
-    #  
-    
+    #  i) In each existing sequence identify a value on the oposite side of the range to 
+    # that of the new element and try to rellocate it in another sequence without violating
+    # the range constraint. 
+    #  ii) Repeat until an adjusted sequence can absorb the new element or
+    # until it becomes clear that absorbtion is not possible.   
+    #
+    # Conjecture 3: with the condition of Conjecture 2 enforced by the Algorithm we do not
+    # an Adjustment Procedure 
+
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
         for cur in reversed(seqs):
             if cur[0] <= val <= cur[1]:
@@ -78,6 +85,5 @@ class Solution:
                  elif val < cur_min:
                      
                  elif val > cur_max:
-
 
 
