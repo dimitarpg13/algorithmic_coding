@@ -35,6 +35,10 @@ class Solution:
     # every new value is moved to the sequence to which mean it is closest to.
     # if the new value does not satisify the range constraint of all existing sequences
     # then we create a new sequence for it.  
+    # Adjustment: Before creating a new sequence find out if we can rebalance the 
+    # exisiting sequences such that the new value will be absorbed in one of the adjusted 
+    # sequences.
+    #  
     
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
         for cur in reversed(seqs):
@@ -74,3 +78,6 @@ class Solution:
                  elif val < cur_min:
                      
                  elif val > cur_max:
+
+
+
