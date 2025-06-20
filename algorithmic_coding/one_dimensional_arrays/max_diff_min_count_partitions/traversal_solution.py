@@ -36,8 +36,15 @@ class Solution:
                 cur_min_idx = 0
                 cur_max_idx = 0
             else:
-                if abs(val - cur_min) <= k and abs(val - cur_max) <= k:
+                 if abs(val - cur_min) <= k and abs(val - cur_max) <= k:
                      if val < cur_min:
-                        cur_seq.append(val)
                         cur_min = val
                         cur_min_idx = i 
+                     elif val > cur_max:
+                        cur_max = val
+                        cur_max_idx = i
+                     cur_seq.append(val)
+                 elif val < cur_min:
+
+                 elif val > cur_max:
+
