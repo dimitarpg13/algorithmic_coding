@@ -10,13 +10,17 @@ class Solution:
         # max, and the third tuple element stores the sequence as a
         # list  
 
+    # Definition: max range of a sequence
+    # We say that the max range of a sequence S = {s1, s2, ..., sn} is K if
+    # max(S) - min(S) = K.
+
     # Definition: optimal partition
-    # A partition of the original sequence s into subsequences s1, s2, ..., sn
-    # such that for each subsequence the max range within it is at most k and no partition
+    # A partition of the original sequence s into subsequences S1, S2, ..., Sn
+    # such that for each subsequence its max range is at most k and no partition
     # exist resulting in a smaller number of sequences having this range constraint.
 
     # Conjecture: We can always find an optimal partition in which for any two subsequences
-    # s1 and s2  every element of one of the sequence is larger than every element of the
+    # S1 and S2  every element of one of the sequence is larger than every element of the
     # other.
     
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
