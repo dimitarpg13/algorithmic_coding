@@ -15,7 +15,7 @@ class Solution:
     # max(S) - min(S) = K.
 
     # Definition: optimal k-partition
-    # A partition of the original sequence s into subsequences S1, S2, ..., Sn
+    # A partition of the original sequence S into subsequences S1, S2, ..., Sn
     # such that for each subsequence its max range is at most k and no partition
     # exist resulting in a smaller number of sequences having the specified range constraint.
 
