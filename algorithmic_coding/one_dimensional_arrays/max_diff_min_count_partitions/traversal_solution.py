@@ -22,6 +22,9 @@ class Solution:
     # Conjecture: We can always find an optimal k-partition in which for any two subsequences
     # S1 and S2  every element of one of the sequence is larger than every element of the
     # other.
+
+    # Conjecture: We can always find an optimal k-partition in which the total sum of ranges
+    # along all sequences R_tot_opt is smaller than R_tot of any other k-partition
     
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
         for cur in reversed(seqs):
@@ -61,6 +64,3 @@ class Solution:
                  elif val < cur_min:
                      
                  elif val > cur_max:
-
-
-
