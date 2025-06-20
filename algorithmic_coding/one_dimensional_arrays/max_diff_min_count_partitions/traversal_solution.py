@@ -14,12 +14,12 @@ class Solution:
     # We say that the max range of a sequence S = {s1, s2, ..., sn} is K if
     # max(S) - min(S) = K.
 
-    # Definition: optimal partition
+    # Definition: optimal k-partition
     # A partition of the original sequence s into subsequences S1, S2, ..., Sn
     # such that for each subsequence its max range is at most k and no partition
-    # exist resulting in a smaller number of sequences having this range constraint.
+    # exist resulting in a smaller number of sequences having the specified range constraint.
 
-    # Conjecture: We can always find an optimal partition in which for any two subsequences
+    # Conjecture: We can always find an optimal k-partition in which for any two subsequences
     # S1 and S2  every element of one of the sequence is larger than every element of the
     # other.
     
