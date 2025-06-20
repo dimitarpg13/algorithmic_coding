@@ -18,6 +18,10 @@ class Solution:
     # The total range R_tot(P) of a partition P = {S1, S2, ..., Sm}
     # is given as R_tot(P) = sum_{j=1}^{m} R(Sj) 
 
+    # Definition: Less Than relation for sequences:
+    # for any pair of sequences S1 and S2 we say that S1 < S2 if every value 
+    # in S1 is smaller than every value in S2. 
+
     # Definition: optimal k-partition
     # A partition of the original sequence S into subsequences S1, S2, ..., Sn
     # such that for each subsequence its max range is at most k and no partition
@@ -45,7 +49,8 @@ class Solution:
     # until it becomes clear that absorbtion is not possible.   
     #
     # Conjecture 3: with the condition of Conjecture 2 enforced by the Algorithm we do not
-    # an Adjustment Procedure 
+    # need an Adjustment Procedure.
+    # Suppose we have created p sequences so far - S1, S2, ..., Sp. Then it must be  
 
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
         for cur in reversed(seqs):
