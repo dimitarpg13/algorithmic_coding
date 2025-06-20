@@ -30,7 +30,9 @@ class Solution:
     # Conjecture 2: We can always find an optimal k-partition in which the total range 
     # R_tot_opt is smaller than R_tot of any other k-partition
 
-    # Algorithm: 
+    # Algorithm: follows from Conjecture 1 and Conjecture 2
+    # greedy strategy:
+    # 
     
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
         for cur in reversed(seqs):
