@@ -61,11 +61,28 @@ class GreedySolution:
     # absorb new_val via adjustment. Hence the adjustment procedure is irrelevant with iterative construction
     # of the sequences S1 < S2 < ... < Sp.
 
+    def find_index(val: int, seqs: List[tuple]) -> int:
+        l = len(seq)
+        start = 0
+        end = l
+        while start <= end:
+            i = start + (end - start) // 2
+            cur = seqs[i]
+            if cur[0] <= val <= cur[1]:
+                return i
+            elif val < cur[0]:
+                end = i - 1
+            elif val > cur[1]:
+                start = i + 1
+        return i
+
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
         for cur in reversed(seqs):
             if cur[0] <= val <= cur[1]:
 
-    def partitionArray(self, nums: List[int], k: int) -> int:
+        
+
+    def partition_array(self, nums: List[int], k: int) -> int:
         """
         nums: input array to be partitioned
         k: max difference between any pair of elements in  
