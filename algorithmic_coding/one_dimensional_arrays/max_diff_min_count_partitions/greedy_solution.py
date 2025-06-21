@@ -1,6 +1,6 @@
 from typing import List
 
-class Solution:
+class GreedySolution:
     def __init__(self):
         self.nums = None
         self.k = None 
@@ -11,24 +11,24 @@ class Solution:
         # list  
 
     # Definition: max range of a sequence
-    # We say that the max range R(S) of a sequence S = {s1, s2, ..., sn} is K if
+    # We say that the max range R(S) of a sequence S = {s_1, s_2, ..., s_n} is K if
     # max(S) - min(S) = K.
 
     # Definition: Total range of a partition R_tot
-    # The total range R_tot(P) of a partition P = {S1, S2, ..., Sm}
-    # is given as R_tot(P) = sum_{j=1}^{m} R(Sj) 
+    # The total range R_tot(P) of a partition P = {S_1, S_2, ..., S_m}
+    # is given as R_tot(P) = sum_{j=1}^{m} R(S_j) 
 
-    # Definition: Less Than relation for sequences:
-    # for any pair of sequences S1 and S2 we say that S1 < S2 if every value 
-    # in S1 is smaller than every value in S2. 
+    # Definition: "Less Than" relation for sequences:
+    # for any pair of sequences S_1 and S_2 we say that S_1 < S_2 if every value 
+    # in S_1 is smaller than every value in S_2. 
 
     # Definition: optimal k-partition
-    # A partition of the original sequence S into subsequences S1, S2, ..., Sn
+    # A partition of the original sequence S into subsequences S_1, S_2, ..., S_n
     # such that for each subsequence its max range is at most k and no partition
     # exist resulting in a smaller number of sequences having the specified range constraint.
 
     # Conjecture 1: We can always find an optimal k-partition in which for any two subsequences
-    # S1 and S2  every element of one of the sequence is larger than every element of the
+    # S_1 and S_2  every element of one of the sequence is larger than every element of the
     # other.
 
     # Conjecture 2: We can always find an optimal k-partition in which the total range 
@@ -50,7 +50,9 @@ class Solution:
     #
     # Conjecture 3: with the condition of Conjecture 2 enforced by the Algorithm we do not
     # need an Adjustment Procedure.
-    # Suppose we have created p sequences so far - S1, S2, ..., Sp. Then it must be  
+    # Proof: Suppose we have created p sequences so far - S1 < S2 < ... < Sp. 
+    # We have a new value new_val which lies in between S_j range and S_{j+1} , 1 <= j <= p  
+    # 
 
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
         for cur in reversed(seqs):
@@ -90,5 +92,4 @@ class Solution:
                  elif val < cur_min:
                      
                  elif val > cur_max:
-
 
