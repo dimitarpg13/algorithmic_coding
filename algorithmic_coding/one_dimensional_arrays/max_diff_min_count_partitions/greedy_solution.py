@@ -51,8 +51,15 @@ class GreedySolution:
     # Conjecture 3: with the condition of Conjecture 2 enforced by the Algorithm we do not
     # need an Adjustment Procedure.
     # Proof: Suppose we have created p sequences so far - S1 < S2 < ... < Sp. 
-    # We have a new value new_val which lies in between S_j range and S_{j+1} , 1 <= j <= p  
-    # 
+    # We have a new value new_val which lies in between S_j range and S_{j+1} range, 1 <= j <= p  
+    # The question is can this new value be absorbed in either S_j or S_{j+1} after adjustment?
+    # If new_val is to be absorbed either into S_j or S_{j+1} then one of those needs to be adjusted.
+    # Let us assume that S_j can be adjusted so that new_val can be absorbed. Obviously, in order this can
+    # happen then we need to be able to remove the smallest value from S_j and add it to S_{j-1} without
+    # violating the k-range constraint. But this cannot happen as if this was possible this value would 
+    # have been already part of the sequence S_{j-1}. Using similar argument we show that S_{j+1} cannot
+    # absorb new_val via adjustment. Hence the adjustment procedure is irrelevant with iterative construction
+    # of the sequences S1 < S2 < ... < Sp.
 
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
         for cur in reversed(seqs):
