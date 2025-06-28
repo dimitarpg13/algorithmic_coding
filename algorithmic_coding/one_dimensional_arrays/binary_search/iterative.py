@@ -1,3 +1,5 @@
+from utils import get_mid
+
 def binary_search(arr, left, right, x):
     """
     Perform binary search on a sorted array.
