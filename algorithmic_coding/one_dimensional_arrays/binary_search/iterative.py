@@ -61,6 +61,62 @@ def _binary_search2(arr: List, left: int, length: int, x: float) -> int:
     return -1
 
 
+def _binary_search3(arr: List, left: int, right: int, x: float) -> int:
+    """
+    Perform binary search on a sorted array.
+    :param arr: List of sorted elements
+    :param left: Left index of the subarray to search
+    :param right: Right index of the subarray to search
+    :param x: Element to search for
+    :return: Index of x in arr if found, otherwise return 
+     the index of the closest element on the left or 0 
+     if no element on the left exists
+    """
+        
+    while left <= right:
+        mid = get_mid(left, right)
+				
+        if arr[mid] == x:
+            return mid
+		
+        elif arr[mid] > x:
+            right = mid - 1
+        
+        else:
+            left = mid + 1
+
+    return mid
+
+
+def _binary_search4(arr: List, left: int, length: int, x: float) -> int:
+    """
+    Perform binary search on a sorted array.
+    :param arr: List of sorted elements
+    :param left: Left index of the subarray to search
+    :param length: Length of the subarray to search
+    :param x: Element to search for
+    :return: Index of x in arr if found, otherwise return 
+     the index of the closest element on the left or 0 
+     if no element on the left exists
+    """
+    while left <= length:
+       mid = get_mid(left, length)
+
+       if mid == left or mid == length:
+           return -1
+
+       if arr[mid] == x:
+           return mid
+       
+       elif arr[mid] > x:
+           length = mid
+
+       else:
+           left = mid
+         
+    return mid
+
+
 if __name__ == '__main__':
     arr = [-2, -1, 0, 1, 7, 11, 115, 223]
 
