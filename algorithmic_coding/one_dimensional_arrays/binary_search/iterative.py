@@ -33,7 +33,6 @@ def binary_search2(arr, left, right, x):
     :return: Index of x in arr if found, otherwise -1
     """
 	while left <= right + 1:
-
        mid = get_mid(left, right + 1)
 
        if mid == left or mid == right + 1:
