@@ -1,5 +1,5 @@
 import unittest
-from one_dimensional_arrays.binary_search.iterative import _binary_search
+from one_dimensional_arrays.binary_search.iterative_solution import _binary_search
 
 
 class IterativeSolutionTestCase(unittest.TestCase):
