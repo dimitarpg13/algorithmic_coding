@@ -1,4 +1,4 @@
-from utils import get_mid
+from one_dimensional_arrays.binary_search.utils import get_mid
 from enum import IntFlag
 from typing import List, Optional
 
