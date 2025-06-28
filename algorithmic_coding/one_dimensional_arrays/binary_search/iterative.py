@@ -8,13 +8,13 @@ def binary_search(arr, left, right, x):
     :return: Index of x in arr if found, otherwise -1
     """
         
-	while start <= end:
-        mid = get_mid(start, end)
+	while left <= right:
+        mid = get_mid(left, right)
 				
-        if lst[mid] == trg:
+        if arr[mid] == x:
             return mid
 		
-        elif lst[mid] > trg:
+        elif arr[mid] > x:
             right = mid - 1
         
         else:
@@ -32,7 +32,7 @@ def binary_search2(arr, left, right, x):
     :param x: Element to search for
     :return: Index of x in arr if found, otherwise -1
     """
-	while left <= right+1:
+	while left <= right + 1:
 
        mid = get_mid(left, right + 1)
 
