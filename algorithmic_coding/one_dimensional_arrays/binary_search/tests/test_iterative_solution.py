@@ -1,6 +1,6 @@
 import unittest
 from parameterized import parameterized
-from one_dimensional_arrays.binary_search.iterative_solution import _binary_search
+from one_dimensional_arrays.binary_search.iterative_solution import _binary_search1
 
 
 
@@ -13,7 +13,7 @@ class IterativeSolutionTestCase(unittest.TestCase):
 
         ])
     def test_iterative_solution_1(self, arr, x, expected):
-        result = _binary_search(arr, 0, len(arr) - 1, x)
+        result = _binary_search1(arr, 0, len(arr) - 1, x)
         if result != -1:
             print(f"Element {x} is present at index {result}")
             self.assertEqual(result, expected, f"For element {x} expected index {expected}")

@@ -9,7 +9,7 @@ class SearchType(IntFlag):
     ARR_DEFINED_WITH_INDICES_OF_FIRST_AND_LAST = 8
     ARR_DEFINED_WITH_INDEX_OF_FIRST_AND_LENGTH = 16
 
-def _binary_search(arr: List, left: int, right: int, x: float) -> int:
+def _binary_search1(arr: List, left: int, right: int, x: float) -> int:
     """
     Perform binary search on a sorted array.
     :param arr: List of sorted elements
@@ -123,7 +123,7 @@ if __name__ == '__main__':
     print("testing binary_search")
     x = -1
     expected = 1
-    result = _binary_search(arr, 0, len(arr)-1, x)
+    result = _binary_search1(arr, 0, len(arr)-1, x)
     if result != -1:
         print(f"Element is present at index {result}")
         assert result == expected, f"Expected index {expected}"
@@ -134,7 +134,7 @@ if __name__ == '__main__':
  
     x = 29
     expected = 6
-    result = _binary_search(arr2, 0, len(arr2)-1, x)
+    result = _binary_search1(arr2, 0, len(arr2)-1, x)
     if result != -1:
         print(f"Element is present at index {result}")
         assert result == expected, f"Expected index {expected}"
@@ -143,7 +143,7 @@ if __name__ == '__main__':
     
     x = 23
     expected = -1
-    result = _binary_search(arr2, 0, len(arr2)-1, x)
+    result = _binary_search1(arr2, 0, len(arr2)-1, x)
     if result == expected:
         print(f"Element {x} is not present at the array")
     else:
@@ -151,7 +151,7 @@ if __name__ == '__main__':
 
     x = 61
     expected = -1
-    result = _binary_search(arr2, 0, len(arr2)-1, x)
+    result = _binary_search1(arr2, 0, len(arr2)-1, x)
     if result == expected:
         print(f"Element {x} is not present at the array")
     else:
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     print("testing binary_search2")
     x = -1
     expected = 1
-    result = _binary_search(arr, 0, len(arr)-1, x)
+    result = _binary_search1(arr, 0, len(arr)-1, x)
     if result != -1:
         print(f"Element is present at index {result}")
         assert result == expected, f"Expected index {expected}"
