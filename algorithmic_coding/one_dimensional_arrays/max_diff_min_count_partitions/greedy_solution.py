@@ -143,16 +143,24 @@ class GreedySolution:
                         prev_seq_info = cur_seq_info
                         cur_seq = list()
                         cur_seq_info = self.new_seq_info()
+                        cur_seq_info[self.MIN_VAL] = val
+                        cur_seq_info[self.MAX_VAL] = val
+                        cur_seq_info[self.MIN_IDX] = 0
+                        cur_seq_info[self.MAX_VAL] = 0
+
                         if val > found_seq_info[self.MAX_VAL]:
                             # found the place of the new sequence so create it and 
                             # insert it after index `idx`
                             self.seqs.insert(idx+1, cur_seq)
+                            self.seq_info.insert(idx+1, cur_seq_info)
+
 
                         else:
                             # returns the first sequence in `self.seqs`` which is still larger 
                             # than the current value. So create a new sequence, insert it as the new
                             # first sequence in self.seqs and add the new value to it.
                             self.seqs.insert(idx, cur_seq)
+                            self.seq_info.insert(idx, cur_seq)
                      
                 elif val > cur_seq_info[self.MAX_VAL]:
                     # create a new sequence, append the new value to it, and append the new sequence
