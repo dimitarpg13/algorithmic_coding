@@ -7,7 +7,7 @@ class SeqInfo(Enum):
     MAX_IDX = 2
     MIN_IDX = 3
 
-class GreedySolution:
+class Solution:
     def __init__(self):
         self.nums = None
         self.k = None 
@@ -145,11 +145,14 @@ class GreedySolution:
                             new_min_idx = len(found_seq_info)-1
                         else:
                             new_min_idx = found_seq_info[SeqInfo.MIN_IDX]
+                        found_seq_info[SeqInfo.MIN_IDX] = new_min_idx
+
                         found_seq_info[SeqInfo.MAX_VAL] = max(val, found_seq_info[SeqInfo.MAX_VAL])
                         if new_max_val == val:
                             new_max_idx = len(found_seq_info)-1
                         else:
                             new_max_idx = found_seq_info[SeqInfo.MAX_IDX]
+                        found_seq_info[SeqInfo.MAX_IDX] = new_max_idx
 
                     else: # we need to create a new sequence
 
