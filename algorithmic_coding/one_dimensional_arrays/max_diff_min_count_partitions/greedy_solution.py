@@ -1,13 +1,11 @@
 from typing import List
-from enum import Enum
 
-class SeqInfo(Enum):
+class Solution:
     MAX_VAL = 0
     MIN_VAL = 1
     MAX_IDX = 2
     MIN_IDX = 3
 
-class GreedySolution:
     def __init__(self):
         self.nums = None
         self.k = None 
@@ -18,9 +16,8 @@ class GreedySolution:
         # max, and the third tuple element stores the sequence as a
         # list  
 
-    @property
-    def new_seq_info():
-        return (float('-inf'), float('inf'), -1, -1)
+    def new_seq_info(self):
+        return [float('-inf'), float('inf'), -1, -1]
 
     # Definition: max range of a sequence
     # We say that the max range R(S) of a sequence S = {s_1, s_2, ..., s_n} is K if
@@ -73,7 +70,7 @@ class GreedySolution:
     # absorb new_val via adjustment. Hence the adjustment procedure is irrelevant with iterative construction
     # of the sequences S1 < S2 < ... < Sp.
 
-    def find_seq_index(val: int, seqs: List[tuple]) -> int:
+    def find_seq_index(self, val: int, seqs: List[tuple]) -> int:
         l = len(seqs)
         start = 0
         end = l
@@ -100,61 +97,53 @@ class GreedySolution:
         self.seqs = list()
         self.seq_info = list()
         cur_seq = list()
-        cur_seq_info = self.new_seq_info 
+        cur_seq_info = self.new_seq_info()
         prev_seq_info = None
         prev_seq = None
         for i, val in enumerate(nums):
             if i == 0:
                 cur_seq.append(val)
-                cur_seq_info[SeqInfo.MIN_VAL] = val
-                cur_seq_info[SeqInfo.MAX_VAL] = val
-                cur_seq_info[SeqInfo.MIN_IDX] = 0
-                cur_seq_info[SeqInfo.MAX_VAL] = 0
+                cur_seq_info[self.MIN_VAL] = val
+                cur_seq_info[self.MAX_VAL] = val
+                cur_seq_info[self.MIN_IDX] = 0
+                cur_seq_info[self.MAX_VAL] = 0
                 self.seqs.append(cur_seq)
                 self.seq_info.append(cur_seq_info)
             else:
-                if abs(val - cur_min) <= k and abs(val - cur_max) <= k:
-                    if val < cur_min:
-                        cur_seq_info[SeqInfo.MIN_VAL] = val
-                        cur_seq_info[SeqInfo.MIN_IDX] = i 
-                    elif val > cur_max:
-                        cur_max = val
-                        cur_max_idx = i
-                        cur_seq_info[SeqInfo.MAX_VAL] = val
-                        cur_seq_info[SeqInfo.MAX_IDX] = i
+                if abs(val - cur_seq_info[self.MIN_VAL]) <= k and abs(val - cur_seq_info[self.MAX_VAL]) <= k:
+                    if val < cur_seq_info[self.MIN_VAL]:
+                        cur_seq_info[self.MIN_VAL] = val
+                        cur_seq_info[self.MIN_IDX] = i 
+                    elif val > cur_seq_info[self.MAX_VAL]:
+                        cur_seq_info[self.MAX_VAL] = val
+                        cur_seq_info[self.MAX_IDX] = i
                     cur_seq.append(val)
-                elif val < cur_min:
-                    idx = self.find_seq_index(val, seqs)
+                elif val < cur_seq_info[self.MIN_VAL]:
+                    idx = self.find_seq_index(val, self.seqs)
                     found_seq =self.seqs[idx]
                     found_seq_info = self.seq_info[idx]
-                    if found_seq_info[SeqInfo.MIN_VAL] <= val <= found_seq_info[SeqInfo.MAX_VAL]:
+                    if found_seq_info[self.MIN_VAL] <= val <= found_seq_info[self.MAX_VAL]:
                         # add the new value to the existing sequence
                         found_seq.append(val)
 
-                    elif abs(found_seq_info[SeqInfo.MIN_VAL]-val) <= k and abs(found_seq_info[SeqInfo.MIN_VAL]-val) <= k:
+                    elif abs(found_seq_info[self.MIN_VAL]-val) <= k and abs(found_seq_info[self.MIN_VAL]-val) <= k:
                         # add the new value to the existing sequence and and update `cur_seq_info`
                         found_seq.append(val)
-                        found_seq_info[SeqInfo.MIN_VAL] = min(val, found_seq_info[SeqInfo.MIN_VAL])
-                        if new_min_val == val:
-                            new_min_idx = len(found_seq_info)-1
-                        else:
-                            new_min_idx = found_seq_info[SeqInfo.MIN_IDX]
-                        found_seq_info[SeqInfo.MIN_IDX] = new_min_idx
-
-                        found_seq_info[SeqInfo.MAX_VAL] = max(val, found_seq_info[SeqInfo.MAX_VAL])
-                        if new_max_val == val:
-                            new_max_idx = len(found_seq_info)-1
-                        else:
-                            new_max_idx = found_seq_info[SeqInfo.MAX_IDX]
-                        found_seq_info[SeqInfo.MAX_IDX] = new_max_idx
-
+                        found_seq_info[self.MIN_VAL] = min(val, found_seq_info[self.MIN_VAL])
+                        if found_seq_info[self.MIN_VAL] == val:
+                            found_seq_info[self.MIN_IDX] = len(found_seq)-1
+                        
+                        found_seq_info[self.MAX_VAL] = max(val, found_seq_info[self.MAX_VAL])
+                        if found_seq_info[self.MAX_VAL] == val:
+                            found_seq_info[self.MAX_IDX] = len(found_seq)-1
+                        
                     else: # we need to create a new sequence
 
                         prev_seq = cur_seq
                         prev_seq_info = cur_seq_info
                         cur_seq = list()
-                        cur_seq_info = self.new_seq_info
-                        if val > found_seq_info[SeqInfo.MAX_VAL]:
+                        cur_seq_info = self.new_seq_info()
+                        if val > found_seq_info[self.MAX_VAL]:
                             # found the place of the new sequence so create it and 
                             # insert it after index `idx`
                             self.seqs.insert(idx+1, cur_seq)
@@ -165,18 +154,18 @@ class GreedySolution:
                             # first sequence in self.seqs and add the new value to it.
                             self.seqs.insert(idx, cur_seq)
                      
-                elif val > cur_max:
+                elif val > cur_seq_info[self.MAX_VAL]:
                     # create a new sequence, append the new value to it, and append the new sequence
                     # to the end of `self.seqs`
                     prev_seq = cur_seq
                     prev_seq_info = cur_seq_info
                     cur_seq = list()
-                    cur_seq_info = self.new_seq_info
+                    cur_seq_info = self.new_seq_info()
                     cur_seq.append(val)
-                    cur_seq_info[SeqInfo.MIN_VAL] = val
-                    cur_seq_info[SeqInfo.MAX_VAL] = val
-                    cur_seq_info[SeqInfo.MIN_IDX] = 0
-                    cur_seq_info[SeqInfo.MAX_VAL] = 0
+                    cur_seq_info[self.MIN_VAL] = val
+                    cur_seq_info[self.MAX_VAL] = val
+                    cur_seq_info[self.MIN_IDX] = 0
+                    cur_seq_info[self.MAX_VAL] = 0
                     self.seqs.append(cur_seq)
                     self.seq_info.append(cur_seq_info)
 
