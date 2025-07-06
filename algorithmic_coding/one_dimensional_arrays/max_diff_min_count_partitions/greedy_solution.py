@@ -89,12 +89,6 @@ class GreedySolution:
                 start = i + 1
         return i
 
-    def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
-        for cur in reversed(seqs):
-            if cur[0] <= val <= cur[1]:
-            
-        
-
     def partitionArray(self, nums: List[int], k: int) -> int:
         """
         nums: input array to be partitioned
@@ -185,4 +179,6 @@ class GreedySolution:
                     cur_seq_info[SeqInfo.MAX_VAL] = 0
                     self.seqs.append(cur_seq)
                     self.seq_info.append(cur_seq_info)
+
+        return len(self.seqs)
  
