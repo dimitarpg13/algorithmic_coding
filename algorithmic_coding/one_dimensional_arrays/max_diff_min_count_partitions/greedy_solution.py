@@ -134,9 +134,25 @@ class GreedySolution:
                     found_seq =self.seqs[idx]
                     found_seq_info = self.seq_info[idx]
                     if found_seq_info[SeqInfo.MIN_VAL] <= val <= found_seq_info[SeqInfo.MAX_VAL]:
-                        # add the new value here
-                        # TODO
-                    else:
+                        # add the new value to the existing sequence
+                        found_seq.append(val)
+
+                    elif abs(found_seq_info[SeqInfo.MIN_VAL]-val) <= k and abs(found_seq_info[SeqInfo.MIN_VAL]-val) <= k:
+                        # add the new value to the existing sequence and and update `cur_seq_info`
+                        found_seq.append(val)
+                        found_seq_info[SeqInfo.MIN_VAL] = min(val, found_seq_info[SeqInfo.MIN_VAL])
+                        if new_min_val == val:
+                            new_min_idx = len(found_seq_info)-1
+                        else:
+                            new_min_idx = found_seq_info[SeqInfo.MIN_IDX]
+                        found_seq_info[SeqInfo.MAX_VAL] = max(val, found_seq_info[SeqInfo.MAX_VAL])
+                        if new_max_val == val:
+                            new_max_idx = len(found_seq_info)-1
+                        else:
+                            new_max_idx = found_seq_info[SeqInfo.MAX_IDX]
+
+                    else: # we need to create a new sequence
+
                         prev_seq = cur_seq
                         prev_seq_info = cur_seq_info
                         cur_seq = list()
@@ -153,6 +169,5 @@ class GreedySolution:
                             self.seqs.insert(idx, cur_seq)
                      
                 elif val > cur_max:
-                    # create a new sequence and append the value to it
-
-
+                    # create a new sequence, append the new value to it, and append the new sequence
+                    # to the end of `self.seqs`
