@@ -106,7 +106,7 @@ class GreedySolution:
                 cur_seq_info[self.MIN_VAL] = val
                 cur_seq_info[self.MAX_VAL] = val
                 cur_seq_info[self.MIN_IDX] = 0
-                cur_seq_info[self.MAX_VAL] = 0
+                cur_seq_info[self.MAX_IDX] = 0
                 self.seqs.append(cur_seq)
                 self.seq_info.append(cur_seq_info)
             else:
@@ -146,7 +146,7 @@ class GreedySolution:
                         cur_seq_info[self.MIN_VAL] = val
                         cur_seq_info[self.MAX_VAL] = val
                         cur_seq_info[self.MIN_IDX] = 0
-                        cur_seq_info[self.MAX_VAL] = 0
+                        cur_seq_info[self.MAX_IDX] = 0
 
                         if val > found_seq_info[self.MAX_VAL]:
                             # found the place of the new sequence so create it and 
@@ -173,9 +173,9 @@ class GreedySolution:
                     cur_seq_info[self.MIN_VAL] = val
                     cur_seq_info[self.MAX_VAL] = val
                     cur_seq_info[self.MIN_IDX] = 0
-                    cur_seq_info[self.MAX_VAL] = 0
+                    cur_seq_info[self.MAX_IDX] = 0
                     self.seqs.append(cur_seq)
                     self.seq_info.append(cur_seq_info)
 
         return len(self.seqs)
- 
+  
