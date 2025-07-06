@@ -119,29 +119,32 @@ class GreedySolution:
                 self.seqs.append(cur_seq)
                 self.seq_info.append(cur_seq_info)
             else:
-                 if abs(val - cur_min) <= k and abs(val - cur_max) <= k:
-                     if val < cur_min:
+                if abs(val - cur_min) <= k and abs(val - cur_max) <= k:
+                    if val < cur_min:
                         cur_seq_info[SeqInfo.MIN_VAL] = val
                         cur_seq_info[SeqInfo.MIN_IDX] = i 
-                     elif val > cur_max:
+                    elif val > cur_max:
                         cur_max = val
                         cur_max_idx = i
                         cur_seq_info[SeqInfo.MAX_VAL] = val
                         cur_seq_info[SeqInfo.MAX_IDX] = i
-                     cur_seq.append(val)
-                 elif val < cur_min:
-                     idx = self.find_seq_index(val, seqs)
-                     found_seq =self.seqs[idx]
-                     found_seq_info = self.seq_info[idx]
-                     if found_seq_info[SeqInfo.MIN_VAL] <= val <= found_seq_info[SeqInfo.MAX_VAL]:
+                    cur_seq.append(val)
+                elif val < cur_min:
+                    idx = self.find_seq_index(val, seqs)
+                    found_seq =self.seqs[idx]
+                    found_seq_info = self.seq_info[idx]
+                    if found_seq_info[SeqInfo.MIN_VAL] <= val <= found_seq_info[SeqInfo.MAX_VAL]:
                         # add the new value here
                         # TODO
                     else:
                         if val > found_seq_info[SeqInfo.MAX_VAL]:
                             # found the place of the new sequence so create it and 
                             # insert it after this index
+                        else:
+                            # returned the first sequence in self.seqs which is still larger 
+                            # than the current value. So create a new sequence and add the new volue to it. 
                      
-                 elif val > cur_max:
-
+                elif val > cur_max:
+                    # create a new sequence and append the value to it
 
 
