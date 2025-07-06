@@ -7,7 +7,7 @@ class SeqInfo(Enum):
     MAX_IDX = 2
     MIN_IDX = 3
 
-class Solution:
+class GreedySolution:
     def __init__(self):
         self.nums = None
         self.k = None 
@@ -144,11 +144,13 @@ class Solution:
                         if val > found_seq_info[SeqInfo.MAX_VAL]:
                             # found the place of the new sequence so create it and 
                             # insert it after index `idx`
+                            self.seqs.insert(idx+1, cur_seq)
 
                         else:
                             # returns the first sequence in `self.seqs`` which is still larger 
                             # than the current value. So create a new sequence, insert it as the new
-                            # first sequence in self.seqs and add the new volue to it. 
+                            # first sequence in self.seqs and add the new value to it.
+                            self.seqs.insert(idx, cur_seq)
                      
                 elif val > cur_max:
                     # create a new sequence and append the value to it
