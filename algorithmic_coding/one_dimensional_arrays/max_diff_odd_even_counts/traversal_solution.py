@@ -128,12 +128,14 @@ class TraversalSolution:
 
         if self.k > self.n:
             raise ValueError(f"invalid value for k: {self.k}")
+
         max_diff = - self.n - 1
         for i in range(0,self.n-self.k+1):
             max_diff = max(max_diff,self._max_difference_subs(s, i))
-        #if max_diff == - self.n - 1:
+
+        # if max_diff == - self.n - 1:
         #    raise ValueError(f"No even frequency found with this input!") 
-        return max_diff           
+        return max_diff
 
 
 if __name__ == '__main__':
