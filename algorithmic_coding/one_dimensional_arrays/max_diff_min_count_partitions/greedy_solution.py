@@ -174,3 +174,15 @@ class GreedySolution:
                 elif val > cur_max:
                     # create a new sequence, append the new value to it, and append the new sequence
                     # to the end of `self.seqs`
+                    prev_seq = cur_seq
+                    prev_seq_info = cur_seq_info
+                    cur_seq = list()
+                    cur_seq_info = self.new_seq_info
+                    cur_seq.append(val)
+                    cur_seq_info[SeqInfo.MIN_VAL] = val
+                    cur_seq_info[SeqInfo.MAX_VAL] = val
+                    cur_seq_info[SeqInfo.MIN_IDX] = 0
+                    cur_seq_info[SeqInfo.MAX_VAL] = 0
+                    self.seqs.append(cur_seq)
+                    self.seq_info.append(cur_seq_info)
+ 
