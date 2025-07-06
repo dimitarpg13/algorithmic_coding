@@ -1,6 +1,6 @@
 from typing import List
 
-class Solution:
+class GreedySolution:
     MAX_VAL = 0
     MIN_VAL = 1
     MAX_IDX = 2
