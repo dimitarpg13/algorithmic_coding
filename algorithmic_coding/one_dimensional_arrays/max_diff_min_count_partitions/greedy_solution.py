@@ -7,7 +7,7 @@ class SeqInfo(Enum):
     MAX_IDX = 2
     MIN_IDX = 3
 
-class Solution:
+class GreedySolution:
     def __init__(self):
         self.nums = None
         self.k = None 
