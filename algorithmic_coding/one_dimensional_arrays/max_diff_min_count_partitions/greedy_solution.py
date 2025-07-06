@@ -1,14 +1,26 @@
 from typing import List
+from enum import Enum
+
+class SeqInfo(Enum):
+    MAX_VAL = 0
+    MIN_VAL = 1
+    MAX_IDX = 2
+    MIN_IDX = 3
 
 class GreedySolution:
     def __init__(self):
         self.nums = None
         self.k = None 
         self.seqs = None
+        self.seq_info = None
         # seqs are stored in a list of tuples in which the first
         # element encodes the seq min, the second element - the seq
         # max, and the third tuple element stores the sequence as a
         # list  
+
+    @property
+    def new_seq_info():
+        return (float('-inf'), float('inf'), -1, -1)
 
     # Definition: max range of a sequence
     # We say that the max range R(S) of a sequence S = {s_1, s_2, ..., s_n} is K if
@@ -61,10 +73,11 @@ class GreedySolution:
     # absorb new_val via adjustment. Hence the adjustment procedure is irrelevant with iterative construction
     # of the sequences S1 < S2 < ... < Sp.
 
-    def find_index(val: int, seqs: List[tuple]) -> int:
-        l = len(seq)
+    def find_seq_index(val: int, seqs: List[tuple]) -> int:
+        l = len(seqs)
         start = 0
         end = l
+        i = -1
         while start <= end:
             i = start + (end - start) // 2
             cur = seqs[i]
@@ -79,10 +92,10 @@ class GreedySolution:
     def find_prev_seq(val: int, seqs: List[tuple]) -> tuple:
         for cur in reversed(seqs):
             if cur[0] <= val <= cur[1]:
-
+            
         
 
-    def partition_array(self, nums: List[int], k: int) -> int:
+    def partitionArray(self, nums: List[int], k: int) -> int:
         """
         nums: input array to be partitioned
         k: max difference between any pair of elements in  
@@ -91,29 +104,44 @@ class GreedySolution:
         self.nums = nums
         self.k = k
         self.seqs = list()
+        self.seq_info = list()
         cur_seq = list()
-        cur_min = float('inf')
-        cur_max = float('-inf')
-        cur_min_idx = -1
-        cur_max_idx = -1 
+        cur_seq_info = self.new_seq_info 
+        prev_seq_info = None
         prev_seq = None
         for i, val in enumerate(nums):
             if i == 0:
                 cur_seq.append(val)
-                cur_min = val
-                cur_max = val
-                cur_min_idx = 0
-                cur_max_idx = 0
+                cur_seq_info[SeqInfo.MIN_VAL] = val
+                cur_seq_info[SeqInfo.MAX_VAL] = val
+                cur_seq_info[SeqInfo.MIN_IDX] = 0
+                cur_seq_info[SeqInfo.MAX_VAL] = 0
+                self.seqs.append(cur_seq)
+                self.seq_info.append(cur_seq_info)
             else:
                  if abs(val - cur_min) <= k and abs(val - cur_max) <= k:
                      if val < cur_min:
-                        cur_min = val
-                        cur_min_idx = i 
+                        cur_seq_info[SeqInfo.MIN_VAL] = val
+                        cur_seq_info[SeqInfo.MIN_IDX] = i 
                      elif val > cur_max:
                         cur_max = val
                         cur_max_idx = i
+                        cur_seq_info[SeqInfo.MAX_VAL] = val
+                        cur_seq_info[SeqInfo.MAX_IDX] = i
                      cur_seq.append(val)
                  elif val < cur_min:
+                     idx = self.find_seq_index(val, seqs)
+                     found_seq =self.seqs[idx]
+                     found_seq_info = self.seq_info[idx]
+                     if found_seq_info[SeqInfo.MIN_VAL] <= val <= found_seq_info[SeqInfo.MAX_VAL]:
+                        # add the new value here
+                        # TODO
+                    else:
+                        if val > found_seq_info[SeqInfo.MAX_VAL]:
+                            # found the place of the new sequence so create it and 
+                            # insert it after this index
                      
                  elif val > cur_max:
+
+
 
