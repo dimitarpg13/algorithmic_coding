@@ -78,11 +78,11 @@ class GreedySolution:
         while start <= end:
             i = start + (end - start) // 2
             cur = seqs[i]
-            if cur[0] <= val <= cur[1]:
+            if cur[self.MIN_VAL] <= val <= cur[self.MAX_VAL]:
                 return i
-            elif val < cur[0]:
+            elif val < cur[self.MIN_VAL]:
                 end = i - 1
-            elif val > cur[1]:
+            elif val > cur[self.MAX_VAL]:
                 start = i + 1
         return i
 
@@ -179,3 +179,17 @@ class GreedySolution:
 
         return len(self.seqs)
   
+if __name__ == '__main__':
+    greedy_solution = GreedySolution()
+    nums = [1, 2, 3, 4, 5, 6, 7, 8]
+    k = 2
+    print(f"Partitioning {nums} with k={k} results in {greedy_solution.partitionArray(nums, k)} sequences")
+    
+    nums = [1, 2, 3, 4, 5, 6, 7, 8]
+    k = 3
+    print(f"Partitioning {nums} with k={k} results in {greedy_solution.partitionArray(nums, k)} sequences")     
+
+    nums = [3,1,3,4,2]
+    k = 0
+    print(f"Partitioning {nums} with k={k} results in {greedy_solution.partitionArray(nums, k)} sequences")
+    
