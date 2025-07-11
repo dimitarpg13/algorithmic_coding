@@ -70,21 +70,31 @@ class GreedySolution:
     # absorb new_val via adjustment. Hence the adjustment procedure is irrelevant with iterative construction
     # of the sequences S1 < S2 < ... < Sp.
 
-    def find_seq_index(self, val: int, seqs: List[tuple]) -> int:
-        l = len(seqs)
-        start = 0
-        end = l
-        i = -1
-        while start <= end:
-            i = start + (end - start) // 2
-            cur = seqs[i]
-            if cur[self.MIN_VAL] <= val <= cur[self.MAX_VAL]:
+    def find_seq_index(self, val: int, seq_info: List[tuple]) -> int:
+        # l = len(seq_info)
+        # start = 0
+        # end = l-1
+        # i = -1
+        # while start <= end:
+        #     i = start + (end - start) // 2
+        #     cur = seq_info[i]
+        #     if cur[self.MIN_VAL] <= val <= cur[self.MAX_VAL]:
+        #         return i
+        #     elif val < cur[self.MIN_VAL]:
+        #         end = i - 1
+        #     elif val > cur[self.MAX_VAL]:
+        #         start = i + 1
+        # return i
+        for i, seq in enumerate(seq_info):
+            if seq[self.MIN_VAL] <= val <= seq[self.MAX_VAL]:
                 return i
-            elif val < cur[self.MIN_VAL]:
-                end = i - 1
-            elif val > cur[self.MAX_VAL]:
-                start = i + 1
-        return i
+            elif val < seq[self.MIN_VAL]:
+                return i - 1
+            elif val > seq[self.MAX_VAL]:
+                if i < len(seq_info) - 1:
+                    return i + 1
+                else:
+                    return i    
 
     def partitionArray(self, nums: List[int], k: int) -> int:
         """
@@ -119,14 +129,15 @@ class GreedySolution:
                         cur_seq_info[self.MAX_IDX] = i
                     cur_seq.append(val)
                 elif val < cur_seq_info[self.MIN_VAL]:
-                    idx = self.find_seq_index(val, self.seqs)
+                    idx = self.find_seq_index(val, self.seq_info)
                     found_seq =self.seqs[idx]
                     found_seq_info = self.seq_info[idx]
                     if found_seq_info[self.MIN_VAL] <= val <= found_seq_info[self.MAX_VAL]:
                         # add the new value to the existing sequence
                         found_seq.append(val)
+                        
 
-                    elif abs(found_seq_info[self.MIN_VAL]-val) <= k and abs(found_seq_info[self.MIN_VAL]-val) <= k:
+                    elif abs(found_seq_info[self.MAX_VAL]-val) <= k and abs(found_seq_info[self.MIN_VAL]-val) <= k:
                         # add the new value to the existing sequence and and update `cur_seq_info`
                         found_seq.append(val)
                         found_seq_info[self.MIN_VAL] = min(val, found_seq_info[self.MIN_VAL])
@@ -138,15 +149,15 @@ class GreedySolution:
                             found_seq_info[self.MAX_IDX] = len(found_seq)-1
                         
                     else: # we need to create a new sequence
-
                         prev_seq = cur_seq
                         prev_seq_info = cur_seq_info
                         cur_seq = list()
+                        cur_seq.append(val)
                         cur_seq_info = self.new_seq_info()
                         cur_seq_info[self.MIN_VAL] = val
                         cur_seq_info[self.MAX_VAL] = val
-                        cur_seq_info[self.MIN_IDX] = 0
-                        cur_seq_info[self.MAX_IDX] = 0
+                        cur_seq_info[self.MIN_IDX] = i
+                        cur_seq_info[self.MAX_IDX] = i
 
                         if val > found_seq_info[self.MAX_VAL]:
                             # found the place of the new sequence so create it and 
@@ -156,40 +167,108 @@ class GreedySolution:
 
 
                         else:
-                            # returns the first sequence in `self.seqs`` which is still larger 
+                            # returns the first sequence in `self.seqs` which is still larger 
                             # than the current value. So create a new sequence, insert it as the new
                             # first sequence in self.seqs and add the new value to it.
                             self.seqs.insert(idx, cur_seq)
-                            self.seq_info.insert(idx, cur_seq)
-                     
-                elif val > cur_seq_info[self.MAX_VAL]:
-                    # create a new sequence, append the new value to it, and append the new sequence
-                    # to the end of `self.seqs`
-                    prev_seq = cur_seq
-                    prev_seq_info = cur_seq_info
-                    cur_seq = list()
-                    cur_seq_info = self.new_seq_info()
-                    cur_seq.append(val)
-                    cur_seq_info[self.MIN_VAL] = val
-                    cur_seq_info[self.MAX_VAL] = val
-                    cur_seq_info[self.MIN_IDX] = 0
-                    cur_seq_info[self.MAX_IDX] = 0
-                    self.seqs.append(cur_seq)
-                    self.seq_info.append(cur_seq_info)
+                            self.seq_info.insert(idx, cur_seq_info)
 
+                elif val > cur_seq_info[self.MAX_VAL]:
+                    idx = self.find_seq_index(val, self.seq_info)
+                    if idx < len(self.seq_info) and idx >= 0:
+                        found_seq =self.seqs[idx]
+                        found_seq_info = self.seq_info[idx]
+                        if found_seq_info[self.MIN_VAL] <= val <= found_seq_info[self.MAX_VAL]:
+                            # add the new value to the existing sequence
+                            found_seq.append(val)
+
+                        elif abs(found_seq_info[self.MIN_VAL]-val) <= k and abs(found_seq_info[self.MIN_VAL]-val) <= k:
+                            # add the new value to the existing sequence and and update `cur_seq_info`
+                            found_seq.append(val)
+                            found_seq_info[self.MIN_VAL] = min(val, found_seq_info[self.MIN_VAL])
+                            if found_seq_info[self.MIN_VAL] == val:
+                                found_seq_info[self.MIN_IDX] = len(found_seq)-1
+                            
+                            found_seq_info[self.MAX_VAL] = max(val, found_seq_info[self.MAX_VAL])
+                            if found_seq_info[self.MAX_VAL] == val:
+                                found_seq_info[self.MAX_IDX] = len(found_seq)-1
+                            
+                        else: # we need to create a new sequence
+                            prev_seq = cur_seq
+                            prev_seq_info = cur_seq_info
+                            cur_seq = list()
+                            cur_seq.append(val)
+                            cur_seq_info = self.new_seq_info()
+                            cur_seq_info[self.MIN_VAL] = val
+                            cur_seq_info[self.MAX_VAL] = val
+                            cur_seq_info[self.MIN_IDX] = i
+                            cur_seq_info[self.MAX_IDX] = i
+
+                            if val > found_seq_info[self.MAX_VAL]:
+                                # found the place of the new sequence so create it and 
+                                # insert it after index `idx`
+                                self.seqs.insert(idx+1, cur_seq)
+                                self.seq_info.insert(idx+1, cur_seq_info)
+
+
+                            else:
+                                # returns the first sequence in `self.seqs`` which is still larger 
+                                # than the current value. So create a new sequence, insert it as the new
+                                # first sequence in self.seqs and add the new value to it.
+                                self.seqs.insert(idx, cur_seq)
+                                self.seq_info.insert(idx, cur_seq_info)
+                    else:
+                        # idx larger than the last index of `self.seq_info`
+                        # we did not find a sequence that can absorb the new value
+                        prev_seq = cur_seq
+                        prev_seq_info = cur_seq_info
+                        cur_seq = list()
+                        cur_seq.append(val)
+                        cur_seq_info = self.new_seq_info()
+                        cur_seq_info[self.MIN_VAL] = val
+                        cur_seq_info[self.MAX_VAL] = val
+                        cur_seq_info[self.MIN_IDX] = i
+                        cur_seq_info[self.MAX_IDX] = i
+                        self.seqs.append(cur_seq)
+                        self.seq_info.append(cur_seq_info)
+
+                        
+
+                # elif val > cur_seq_info[self.MAX_VAL]:
+                #     # create a new sequence, append the new value to it, and append the new sequence
+                #     # to the end of `self.seqs`
+                #     prev_seq = cur_seq
+                #     prev_seq_info = cur_seq_info
+                #     cur_seq = list()
+                #     cur_seq_info = self.new_seq_info()
+                #     cur_seq.append(val)
+                #     cur_seq_info[self.MIN_VAL] = val
+                #     cur_seq_info[self.MAX_VAL] = val
+                #     cur_seq_info[self.MIN_IDX] = 0
+                #     cur_seq_info[self.MAX_IDX] = 0
+                #     self.seqs.append(cur_seq)
+                #     self.seq_info.append(cur_seq_info)
+        print(f"Partitioned {self.seqs}")
         return len(self.seqs)
   
 if __name__ == '__main__':
     greedy_solution = GreedySolution()
-    nums = [1, 2, 3, 4, 5, 6, 7, 8]
-    k = 2
-    print(f"Partitioning {nums} with k={k} results in {greedy_solution.partitionArray(nums, k)} sequences")
+    # nums = [1, 2, 3, 4, 5, 6, 7, 8]
+    # k = 2
+    # print(f"Partitioning {nums} with k={k} results in {greedy_solution.partitionArray(nums, k)} sequences")
     
-    nums = [1, 2, 3, 4, 5, 6, 7, 8]
-    k = 3
-    print(f"Partitioning {nums} with k={k} results in {greedy_solution.partitionArray(nums, k)} sequences")     
+    # nums = [1, 2, 3, 4, 5, 6, 7, 8]
+    # k = 3
+    # print(f"Partitioning {nums} with k={k} results in {greedy_solution.partitionArray(nums, k)} sequences")     
 
-    nums = [3,1,3,4,2]
-    k = 0
-    print(f"Partitioning {nums} with k={k} results in {greedy_solution.partitionArray(nums, k)} sequences")
+    # nums = [3,1,3,4,2]
+    # k = 0
+    # print(f"Partitioning {nums} with k={k} results in {greedy_solution.partitionArray(nums, k)} sequences")
     
+    # nums = [5,2,1,5,3]
+    # k = 3
+    # print(f"Partitioning {nums} with k={k} results in {greedy_solution.partitionArray(nums, k)} sequences")
+
+    nums = [16,8,17,0,3,17,8,20]
+    k = 10
+    print(f"Partitioning {nums} with k={k} results in {greedy_solution.partitionArray(nums, k)} sequences")
