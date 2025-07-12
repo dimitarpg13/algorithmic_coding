@@ -132,7 +132,7 @@ class GreedySolution:
                         # add the new value to the existing sequence
                         found_seq.append(val)
 
-                    elif abs(found_seq_info[self.MIN_VAL]-val) <= k and abs(found_seq_info[self.MIN_VAL]-val) <= k:
+                    elif abs(found_seq_info[self.MAX_VAL]-val) <= k and abs(found_seq_info[self.MIN_VAL]-val) <= k:
                         # add the new value to the existing sequence and and update `cur_seq_info`
                         found_seq.append(val)
                         found_seq_info[self.MIN_VAL] = min(val, found_seq_info[self.MIN_VAL])
