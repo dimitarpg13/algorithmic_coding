@@ -85,6 +85,7 @@ class GreedySolution:
         #     elif val > cur[self.MAX_VAL]:
         #         start = i + 1
         # return i
+        idx = -1
         for i, seq in enumerate(seq_info):
             if abs(val - seq[self.MIN_VAL]) <= k and abs(val - seq[self.MAX_VAL]) <= k:
                 return i
@@ -92,9 +93,10 @@ class GreedySolution:
                 return i - 1
             elif val > seq[self.MAX_VAL]:
                 if i < len(seq_info) - 1:
-                    return i + 1
+                    idx = i + 1
                 else:
-                    return i    
+                    idx = i
+        return idx    
 
     def partitionArray(self, nums: List[int], k: int) -> int:
         """
@@ -121,7 +123,7 @@ class GreedySolution:
                 self.seq_info.append(cur_seq_info)
             else:
                 idx = self.find_seq_index(val, self.seq_info)
-                if i == 1:
+                if i == 7:
                     print(f"idx={idx}, val={val}, seq_info={self.seq_info}")
                 if idx < len(self.seq_info) and idx >= 0:
                     found_seq =self.seqs[idx]
